@@ -50,11 +50,13 @@ var ajaxCall = (key, url, prompt_system, prompt_user, prompt_assistant) => {
       </div>
     `;
   class MainWebComponent extends HTMLElement {
-    async post(apiKey, endpoint, prompt) {
+    async post(apiKey, endpoint, prompt_system, prompt_user, prompt_assistant) {
       const { response } = await ajaxCall(
         apiKey,
         endpoint,
-        prompt
+        prompt_system,
+        prompt_user,
+        prompt_assistant
       );
       console.log(response);
       return response.choices.message.content;
