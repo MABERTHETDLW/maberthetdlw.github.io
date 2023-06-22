@@ -62,7 +62,7 @@ var ajaxCall = (key, url, prompt_system, prompt_user, prompt_assistant) => {
         prompt_assistant
       );
       console.log(response);
-      return response.choices.message.content;
+      return response.choices[0].message.content;
     }
   }
   customElements.define("custom-widget", MainWebComponent);
