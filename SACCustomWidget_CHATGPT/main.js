@@ -38,7 +38,7 @@ var ajaxCall = (key, url, prompt) => {
         prompt
       );
       console.log(response);
-      return response.choices[0].text;
+      return response;
     }
   }
   customElements.define("custom-widget", MainWebComponent);
