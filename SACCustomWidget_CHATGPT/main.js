@@ -22,14 +22,15 @@ var ajaxCall = (key, url, prompt_system, prompt_user, prompt_assistant) => {
       "role": "assistant",
       "content": "En tant qu'IA, je ne peux pas accéder à cette information directement. Veuillez vérifier votre compte ou contacter le support de l'API que vous utilisez pour connaître votre quota API."
     }
-  ]`,
+  ],
   "temperature": 0.7,
   "top_p": 0.95,
   "frequency_penalty": 0,
   "presence_penalty": 0,
   "max_tokens": 800,
   "stop": null
-}      resolve({ response, status, xhr });
+}`,
+      resolve({ response, status, xhr });
       },
       error: function (xhr, status, error) {
         const err = new Error('xhr error');
