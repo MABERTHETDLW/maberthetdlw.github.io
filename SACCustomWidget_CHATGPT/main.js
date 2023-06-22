@@ -6,8 +6,8 @@ var ajaxCall = (key, url, prompt_system, prompt_user, prompt_assistant) => {
       timeout: 0,
       headers: {
         "Content-Type": "application/json",
-        "api-key": "${key}",
-        "Authorization": "Bearer ${key}",
+        "api-key": key,
+        "Authorization": `{Bearer ${key}`,
       },
       "data": `{
         "messages": [
