@@ -1,6 +1,6 @@
 var ajaxCall = (key, url, prompt_system, prompt_user, prompt_assistant) => {
   return new Promise((resolve, reject) => {
-    $.ajax({
+    $.ajax({ 
       url: url,
       method: "POST",
       timeout: 0,
