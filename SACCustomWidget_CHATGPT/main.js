@@ -13,7 +13,7 @@ var ajaxCall = (key, url, prompt_system, prompt_user, prompt_assistant) => {
         "messages": [
           {
             "role": "system",
-            "content": "You are an AI assistant that helps people find information."
+            "content": "${prompt_system}"
           },
           {
             "role": "user",
@@ -21,7 +21,7 @@ var ajaxCall = (key, url, prompt_system, prompt_user, prompt_assistant) => {
           },
           {
             "role": "assistant",
-            "content": "En tant qu'IA, je ne peux pas accéder à cette information directement. Veuillez vérifier votre compte ou contacter le support de l'API que vous utilisez pour connaître votre quota API."
+            "content": "${prompt_assistant}"
           }
         ],
         "temperature": 0.7,
