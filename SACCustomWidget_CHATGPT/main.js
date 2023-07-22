@@ -1,4 +1,4 @@
-var ajaxCall = (key, url, prompt_system, prompt_user, prompt_assistant, conversationState) => {
+var ajaxCall = (key, url, prompt_system, prompt_user, prompt_assistant) => {
   return new Promise((resolve, reject) => {
     $.ajax({ 
       url: url,
@@ -29,10 +29,7 @@ var ajaxCall = (key, url, prompt_system, prompt_user, prompt_assistant, conversa
         "frequency_penalty": 0,
         "presence_penalty": 0,
         "max_tokens": 800,
-        "stop": null,
-        "context": {  
-          "conversation_id": "${conversationState}"
-        }
+        "stop": null
       }`,
       success: function (response, status, xhr) {
         resolve({ response, status, xhr });
@@ -56,14 +53,13 @@ var ajaxCall = (key, url, prompt_system, prompt_user, prompt_assistant, conversa
       </div>
     `;
   class MainWebComponent extends HTMLElement {
-    async post(apiKey, endpoint, prompt_system, prompt_user, prompt_assistant, conversationState) {
+    async post(apiKey, endpoint, prompt_system, prompt_user, prompt_assistant) {
       const { response } = await ajaxCall(
         apiKey,
         endpoint,
         prompt_system,
         prompt_user,
-        prompt_assistant,
-        conversationState
+        prompt_assistant
       );
       console.log(response);
       return response;
