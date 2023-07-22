@@ -1,4 +1,7 @@
 var ajaxCall = (key, url, prompt_system, prompt_user, prompt_assistant, conversationState) => {
+  if (conversationState === '') {  
+    conversationState = null;  
+  } 
   return new Promise((resolve, reject) => {
     $.ajax({ 
       url: url,
