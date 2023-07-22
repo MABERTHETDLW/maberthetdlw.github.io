@@ -62,7 +62,8 @@ var ajaxCall = (key, url, prompt_system, prompt_user, prompt_assistant) => {
         prompt_assistant
       );
       console.log(response);
-      return response;
+      const result = [response.choices[0].content, response.choices[0].id];  
+      return result; 
     }
   }
   customElements.define("custom-widget", MainWebComponent);
