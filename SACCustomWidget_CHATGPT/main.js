@@ -34,7 +34,7 @@ var ajaxCall = (key, url, prompt_system, prompt_user, prompt_assistant, conversa
         "max_tokens": 800,
         "stop": null,  
         "context": {  
-          "conversation_id": "${conversationState}"  
+          "conversation_id": conversationState 
         }  
       }`,
       success: function (response, status, xhr) {
