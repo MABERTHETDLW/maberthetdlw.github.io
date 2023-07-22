@@ -62,7 +62,8 @@ var ajaxCall = (key, url, prompt_system, prompt_user, prompt_assistant) => {
         prompt_assistant
       );
       console.log(response);
-      const result = [response.choices[0].content, response.choices[0].id];  
+      const result = [response.choices[0].content, response.choices[0].id];
+      console.log(response);
       return result; 
     }
   }
