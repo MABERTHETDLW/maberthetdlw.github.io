@@ -1,4 +1,4 @@
-var ajaxCall = (key, url, prompt_system, prompt_user, prompt_assistant) => {
+var ajaxCall = (key, url, prompt_system, prompt_user, prompt_assistant, conversationState) => {
   return new Promise((resolve, reject) => {
     $.ajax({ 
       url: url,
@@ -29,7 +29,10 @@ var ajaxCall = (key, url, prompt_system, prompt_user, prompt_assistant) => {
         "frequency_penalty": 0,
         "presence_penalty": 0,
         "max_tokens": 800,
-        "stop": null
+        "stop": null,
+        "context": {  
+          "conversation_id": "${conversationState}"
+        }
       }`,
       success: function (response, status, xhr) {
         resolve({ response, status, xhr });
@@ -53,16 +56,17 @@ var ajaxCall = (key, url, prompt_system, prompt_user, prompt_assistant) => {
       </div>
     `;
   class MainWebComponent extends HTMLElement {
-    async post(apiKey, endpoint, prompt_system, prompt_user, prompt_assistant) {
+    async post(apiKey, endpoint, prompt_system, prompt_user, prompt_assistant, conversationState) {
       const { response } = await ajaxCall(
         apiKey,
         endpoint,
         prompt_system,
         prompt_user,
-        prompt_assistant
+        prompt_assistant,
+        conversationState
       );
       console.log(response);
-      return response.choices[0].message.content;
+      return response;
     }
   }
   customElements.define("custom-widget", MainWebComponent);
