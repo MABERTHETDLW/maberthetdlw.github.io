@@ -1,7 +1,30 @@
-var ajaxCall = (key, url, prompt_system, prompt_user, prompt_assistant, conversationState) => {
-  if (conversationState === '') {  
-    conversationState = null;  
-  } 
+var ajaxCall = (key, url, prompt_system, prompt_user, prompt_assistant) => {
+    // Construct messages for prompt_user and prompt_assistant arrays
+    const messages = [];
+    
+    // Ensure the maximum length of messages between prompt_user and prompt_assistant arrays
+    const maxLength = Math.max(prompt_user.length, prompt_assistant.length);
+
+    for (let i = 0; i < maxLength; i++) {
+      if (i < prompt_user.length) {
+        messages.push({
+          "role": "user",
+          "content": prompt_user[i]
+        });
+      }
+      if (i < prompt_assistant.length) {
+        messages.push({
+          "role": "assistant",
+          "content": prompt_assistant[i]
+        });
+      }
+    }
+  
+    messages.unshift({  // Add the prompt_system as the first message
+      "role": "system",
+      "content": prompt_system
+    });
+  
   return new Promise((resolve, reject) => {
     $.ajax({ 
       url: url,
@@ -13,29 +36,13 @@ var ajaxCall = (key, url, prompt_system, prompt_user, prompt_assistant, conversa
         "Authorization": `{Bearer ${key}`,
       },
       "data": `{
-        "messages": [
-          {
-            "role": "system",
-            "content": "${prompt_system}"
-          },
-          {
-            "role": "user",
-            "content": "${prompt_user}"
-          },
-          {
-            "role": "assistant",
-            "content": "${prompt_assistant}"
-          }
-        ],
+        "messages": messages,  // Use the constructed messages array
         "temperature": 0.7,
         "top_p": 0.95,
         "frequency_penalty": 0,
         "presence_penalty": 0,
         "max_tokens": 800,
-        "stop": null,  
-        "context": {  
-          "conversation_id": conversationState 
-        }  
+        "stop": null  
       }`,
       success: function (response, status, xhr) {
         resolve({ response, status, xhr });
@@ -59,17 +66,17 @@ var ajaxCall = (key, url, prompt_system, prompt_user, prompt_assistant, conversa
       </div>
     `;
   class MainWebComponent extends HTMLElement {
-    async post(apiKey, endpoint, prompt_system, prompt_user, prompt_assistant, conversationState) {
+    async post(apiKey, endpoint, prompt_system, prompt_user, prompt_assistant) {
       const { response } = await ajaxCall(
         apiKey,
         endpoint,
         prompt_system,
         prompt_user,
-        prompt_assistant,  
-        conversationState  
+        prompt_assistant
       );
       console.log(response);
-      const result = [response.choices[0].message.content, response.id];
+      // const result = [response.choices[0].message.content, response.id];
+      const result = response.choices[0].message.content;
       console.log(result);
       return result; 
     }
