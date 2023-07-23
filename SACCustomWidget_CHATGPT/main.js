@@ -36,7 +36,7 @@ var ajaxCall = (key, url, prompt_system, prompt_user, prompt_assistant) => {
         "Authorization": `{Bearer ${key}`,
       },
       "data": `{
-        "messages": messages,  // Use the constructed messages array
+        "messages": "${messages}",  // Use the constructed messages array
         "temperature": 0.7,
         "top_p": 0.95,
         "frequency_penalty": 0,
